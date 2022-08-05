@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private Transform tr;
-    bool isJump = false;
+    int JumpCnt = 0;
     public int itemCount;
     Rigidbody rigid;
     public float jumpPower = 10;
@@ -24,9 +24,14 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && !isJump)
+        if (Input.GetButtonDown("Jump") && (JumpCnt == 0))
         {
-            isJump = true;
+            JumpCnt = 1;
+            rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
+        }
+        else if (Input.GetButtonDown("Jump") && (JumpCnt == 1))
+        {
+            JumpCnt = 2;
             rigid.AddForce(new Vector3(0, jumpPower, 0), ForceMode.Impulse);
         }
 
@@ -45,7 +50,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Floor")
-            isJump = false;
+            JumpCnt = 0;
         else if(collision.gameObject.tag == "Item")
         {
             itemCount++;
