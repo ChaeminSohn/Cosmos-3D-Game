@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Floor")
+        if (collision.gameObject.tag == "Floor")
             JumpCnt = 0;
         else if(collision.gameObject.tag == "Item")
         {
@@ -66,7 +66,11 @@ public class Player : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("SampleScene");
-            }
+            } 
+        }
+        else if(collision.gameObject.name == "ExtraJump")
+        {
+            JumpCnt = 1;
         }
     }
 }
