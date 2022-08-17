@@ -66,7 +66,11 @@ public class Player : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("SampleScene");
-            }
+            } 
+        }
+        else if(collision.gameObject.name == "ExtraJump")
+        {
+            JumpCnt = 1;
         }
     }
 }
